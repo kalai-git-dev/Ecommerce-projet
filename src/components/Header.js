@@ -1,8 +1,7 @@
 import React from "react";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 
 function Header() {
   const history = useHistory();
@@ -24,19 +23,26 @@ function Header() {
         </div>
 
         <ul className="navigation">
-          <li>Acceuil</li>
-          <li>Produits</li>
-          <li>Contact </li>
+          <NavLink to="/">Acceuil</NavLink>
+          <NavLink to="/Produits">Produits</NavLink>
+          <NavLink to="/Contact">Contact </NavLink>
         </ul>
-        <Button
-          onClick={() => {
-            history.push("/Login");
-          }}
-          variant="contained"
-          color="primary"
-        >
-          LOGIN
-        </Button>
+        <div className="button">
+          <button
+            onClick={() => {
+              history.push("/Sign-up");
+            }}
+          >
+            S'inscrire
+          </button>
+          <button
+            onClick={() => {
+              history.push("/Sign-in");
+            }}
+          >
+            Se Connecter
+          </button>
+        </div>
       </div>
       <ShoppingCartIcon />
     </div>

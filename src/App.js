@@ -4,7 +4,8 @@ import Header from "./components/Header";
 import Acceuil from "./pages/Acceuil";
 import Contact from "./pages/Contact";
 import Products from "./pages/Products";
-import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import SignIn from "./pages/SignIn";
 
 function App() {
   return (
@@ -17,8 +18,11 @@ function App() {
         <Route path="/Contact">
           <Contact />
         </Route>
-        <Route path="/Login">
-          <Login />
+        <Route path="/Sign-up">
+          <Signup />
+        </Route>
+        <Route path="/Sign-in">
+          <SignIn />
         </Route>
         <Route path="/">
           <Acceuil />
