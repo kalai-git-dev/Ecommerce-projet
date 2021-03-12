@@ -41,12 +41,11 @@ export default function SignUp() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessaee] = useState("");
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      setIsLoading(true);
 
       const response = await axios.post("http://localhost:3000/user/signup", {
         email: email,
@@ -56,11 +55,11 @@ export default function SignUp() {
       });
       // console.log(response.data);
       if (response.data.token) {
-        setIsLoading(false);
         history.push("/");
       }
     } catch (error) {
-      console.log(error.message);
+      if (error.response.status === 409 || error.response.status === 400)
+        setErrorMessaee(error.response.data.message);
     }
   };
 
@@ -138,6 +137,9 @@ export default function SignUp() {
                 }}
               />
             </Grid>
+            <div>
+              <p>{errorMessage}</p>
+            </div>
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}

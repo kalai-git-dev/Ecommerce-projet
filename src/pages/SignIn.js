@@ -41,6 +41,7 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     try {
@@ -50,13 +51,14 @@ export default function SignIn() {
         email: email,
         password: password,
       });
-      // console.log(response.data);
       if (response.data.token) {
         setIsLoading(false);
         history.push("/");
       }
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.response);
+      if (error.response.status === 400 || error.response.status === 401)
+        setErrorMessage("Mauvais email et/ou mot de passe");
     }
   };
 
@@ -84,6 +86,7 @@ export default function SignIn() {
             value={email}
             onChange={(event) => {
               setEmail(event.target.value);
+              setErrorMessage("");
             }}
           />
           <TextField
@@ -99,8 +102,12 @@ export default function SignIn() {
             value={password}
             onChange={(event) => {
               setPassword(event.target.value);
+              setErrorMessage("");
             }}
           />
+          <div>
+            <p>{errorMessage}</p>
+          </div>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
