@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -6,6 +7,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import Button from "@material-ui/core/Button";
+
 // select input
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -15,7 +18,7 @@ import Select from "@material-ui/core/Select";
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: 80,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -24,14 +27,84 @@ const useStyles = makeStyles((theme) => ({
 
 function Publish() {
   const classes = useStyles();
+  const [picture, setPicture] = useState({});
+  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("Autres");
+  const [city, setCity] = useState("");
+  const [price, setPrice] = useState("");
+  const [sexe, setSexe] = useState("");
+  const [marque, setMarque] = useState("");
+  const [size, setSize] = useState("");
+  const [condition, setCondition] = useState("");
+  const [color, setColor] = useState("");
+
+  const userToken =
+    "g6FEXagZCSwTwokmKRWNGIv3KpVaUfDLBiqTfKQepvHl0vFIlCnxtoDhqnQIOChW";
+  //   console.log(picture);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("picture", picture);
+    formData.append("description", description);
+    formData.append("title", title);
+    formData.append("category", category);
+    formData.append("city", city);
+    formData.append("price", price);
+    formData.append("sexe", sexe);
+    formData.append("marque", marque);
+    formData.append("size", size);
+    formData.append("condition", condition);
+    formData.append("color", color);
+
+    // try {
+    const response = await axios.post(
+      "http://localhost:3000/publish",
+      formData,
+      {
+        headers: {
+          Authorization: "Bearer " + userToken,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    console.log(response.data);
+    // } catch (error) {
+    //   alert(error.message);
+    // }
+  };
+
   return (
     <div className="publish">
-      <div className="publish__container">
+      <form onSubmit={handleSubmit} className="publish__container">
         <div className="publish__infos">
           <div className="publish__infos__image">
-            <input type="file" />
+            <input
+              type="file"
+              onChange={(e) => {
+                setPicture(e.target.files[0]);
+              }}
+            />
           </div>
           <div className="publish__infos_rigth">
+            <FormControl className={classes.formControl}>
+              <InputLabel id="demo-simple-select-label">Catégorie</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                required
+                value={category}
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+              >
+                <MenuItem value={"Vêtements"}>Vêtements</MenuItem>
+                <MenuItem value={"Chaussures"}>Chaussures</MenuItem>
+                <MenuItem value={"Services"}>Services</MenuItem>
+                <MenuItem value={"Autres"}>Autres</MenuItem>
+              </Select>
+            </FormControl>
+            <hr />
             <TextField
               variant="outlined"
               margin="normal"
@@ -42,31 +115,23 @@ function Publish() {
               type="title"
               id="title"
               autoComplete="current-title"
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
             />
-            <div className="category-sexe">
-              <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">Catégorie</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  // value={age}
-                  // onChange={handleChange}
-                >
-                  <MenuItem value={10}>Vêtements</MenuItem>
-                  <MenuItem value={20}>Chaussures</MenuItem>
-                  <MenuItem value={30}>Services</MenuItem>
-                  <MenuItem value={30}>Autres</MenuItem>
-                </Select>
-              </FormControl>
-
-              <FormControl component="fieldset">
-                <FormLabel component="legend">Sexe</FormLabel>
-                <RadioGroup
-                  aria-label="gender"
-                  name="gender1"
-                  // value={value}
-                  // onChange={handleChange}
-                >
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Sexe</FormLabel>
+              <RadioGroup
+                aria-label="gender"
+                name="gender1"
+                value={sexe}
+                required
+                onChange={(e) => {
+                  setSexe(e.target.value);
+                }}
+              >
+                <div className="category-sexe">
                   <FormControlLabel
                     value="femme"
                     control={<Radio />}
@@ -77,30 +142,23 @@ function Publish() {
                     control={<Radio />}
                     label="homme"
                   />
-                </RadioGroup>
-              </FormControl>
-            </div>
+                </div>
+              </RadioGroup>
+            </FormControl>
             <TextareaAutosize
+              style={{ display: "block" }}
               rowsMin={10}
               label="Prix en Euro"
               variant="outlined"
               margin="normal"
               aria-label="maximum height"
               placeholder="Déscription*"
-              defaultValue=""
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
             />
-            {/* <label htmlFor="">Description</label>
-            <textarea
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="description"
-              label="Description"
-              type="description"
-              id="description"
-              autoComplete="current-description"
-            /> */}
+
             <TextField
               variant="outlined"
               margin="normal"
@@ -108,9 +166,13 @@ function Publish() {
               fullWidth
               name="Price"
               label="Prix en Euro"
-              type="Price"
+              type="number"
               id="Price"
               autoComplete="current-Price"
+              value={price}
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
             />
             <TextField
               variant="outlined"
@@ -122,6 +184,10 @@ function Publish() {
               type="City"
               id="City"
               autoComplete="current-City"
+              value={city}
+              onChange={(e) => {
+                setCity(e.target.value);
+              }}
             />
           </div>
         </div>
@@ -136,6 +202,10 @@ function Publish() {
             type="Marque"
             id="Marque"
             autoComplete="current-Marque"
+            value={marque}
+            onChange={(e) => {
+              setMarque(e.target.value);
+            }}
           />
           <TextField
             variant="outlined"
@@ -147,6 +217,10 @@ function Publish() {
             type="Size"
             id="Size"
             autoComplete="current-Size"
+            value={size}
+            onChange={(e) => {
+              setSize(e.target.value);
+            }}
           />
           <TextField
             variant="outlined"
@@ -158,6 +232,10 @@ function Publish() {
             type="Condition"
             id="Condition"
             autoComplete="current-Condition"
+            value={condition}
+            onChange={(e) => {
+              setCondition(e.target.value);
+            }}
           />
           <TextField
             variant="outlined"
@@ -166,12 +244,19 @@ function Publish() {
             fullWidth
             name="color"
             label="Couleur"
-            type="color"
+            // type="color"
             id="color"
             autoComplete="current-color"
+            value={color}
+            onChange={(e) => {
+              setColor(e.target.value);
+            }}
           />
         </div>
-      </div>
+        <Button variant="contained" type="submit" color="primary">
+          Publier
+        </Button>
+      </form>
     </div>
   );
 }

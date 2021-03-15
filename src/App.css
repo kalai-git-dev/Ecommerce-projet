@@ -2,5 +2,5 @@
   box-sizing: border-box;
 }
 
-@import "./styles/Header.css";
+@import "./styles/header.css";
 @import "./styles/Publish.css";
