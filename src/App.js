@@ -6,6 +6,7 @@ import Contact from "./pages/Contact";
 import Products from "./pages/Products";
 import Signup from "./pages/Signup";
 import SignIn from "./pages/SignIn";
+import Publish from "./pages/Publish";
 
 function App() {
   return (
@@ -24,7 +25,10 @@ function App() {
         <Route path="/Sign-in">
           <SignIn />
         </Route>
-        <Route path="/">
+        <Route path="/publish">
+          <Publish />
+        </Route>
+        <Route exact path="/">
           <Acceuil />
         </Route>
       </Switch>
