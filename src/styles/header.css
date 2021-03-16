@@ -3,6 +3,7 @@
   color: aliceblue;
   display: flex;
   align-items: center;
+  height: 60px;
 }
 .header__container {
   width: 90vw;
@@ -20,4 +21,41 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+.avatar__name {
+  text-align: center;
+  color: black;
+  font-weight: 600;
+}
+.MuiAvatar-root.MuiAvatar-circle.avatar.MuiAvatar-colorDefault {
+  cursor: pointer;
+  border: solid 2px rgb(116, 114, 114);
+  transition: all 0.6s;
+}
+.MuiAvatar-root.MuiAvatar-circle.avatar.MuiAvatar-colorDefault:hover {
+  border: solid 2px rgb(1, 9, 80);
+  cursor: pointer;
+}
+.popup {
+  position: absolute;
+  top: 60px;
+  right: 40px;
+  background-color: rgb(51, 93, 112);
+  transition: all 1s;
+}
+.popup li {
+  padding: 10px;
+  border: black 0.5px solid;
+  transition: all 0.7s;
+  font-weight: 600;
+  text-align: center;
+}
+.popup li:hover {
+  background-color: rgb(255, 255, 255);
+  color: black;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.hidden {
+  opacity: 0;
 }

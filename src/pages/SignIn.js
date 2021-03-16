@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn({ setUser }) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -52,6 +52,7 @@ export default function SignIn() {
         password: password,
       });
       if (response.data.token) {
+        setUser(response.data.token, response.data.lastName);
         setIsLoading(false);
         history.push("/");
       }

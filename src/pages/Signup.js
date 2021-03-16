@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignUp({ setUser }) {
   const classes = useStyles();
   const history = useHistory();
   const [firstName, setFisrtName] = useState("");
@@ -55,7 +55,10 @@ export default function SignUp() {
       });
       // console.log(response.data);
       if (response.data.token) {
+        setUser(response.data.token, response.data.lastName);
         history.push("/");
+      } else {
+        alert("une erreur");
       }
     } catch (error) {
       if (error.response.status === 409 || error.response.status === 400)
