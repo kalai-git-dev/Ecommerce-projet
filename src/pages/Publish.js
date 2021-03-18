@@ -38,6 +38,8 @@ function Publish() {
   const [size, setSize] = useState("");
   const [condition, setCondition] = useState("");
   const [color, setColor] = useState("");
+  // preview image
+  const [preview, setPreview] = useState("");
 
   const userToken =
     "g6FEXagZCSwTwokmKRWNGIv3KpVaUfDLBiqTfKQepvHl0vFIlCnxtoDhqnQIOChW";
@@ -56,7 +58,7 @@ function Publish() {
     formData.append("size", size);
     formData.append("condition", condition);
     formData.append("color", color);
-
+    console.log(preview);
     // try {
     const response = await axios.post(
       "http://localhost:3000/publish",
@@ -79,12 +81,19 @@ function Publish() {
       <form onSubmit={handleSubmit} className="publish__container">
         <div className="publish__infos">
           <div className="publish__infos__image">
-            <input
-              type="file"
-              onChange={(e) => {
-                setPicture(e.target.files[0]);
-              }}
-            />
+            {preview ? (
+              <img style={{ width: 300, height: 300 }} src={preview} alt="" />
+            ) : (
+              <input
+                className="input__file"
+                type="file"
+                onChange={(e) => {
+                  setPicture(e.target.files[0]);
+                  setPreview(URL.createObjectURL(e.target.files[0]));
+                  console.log(preview);
+                }}
+              />
+            )}
           </div>
           <div className="publish__infos_rigth">
             <FormControl className={classes.formControl}>
