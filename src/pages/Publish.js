@@ -8,7 +8,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Button from "@material-ui/core/Button";
-
+// import { useHistory } from "react-router-dom";
 // select input
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -25,9 +25,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Publish() {
+function Publish({ token }) {
+  // const history = useHistory();
   const classes = useStyles();
-  const [picture, setPicture] = useState({});
+  const [picture, setPicture] = useState(null);
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Autres");
@@ -41,8 +42,6 @@ function Publish() {
   // preview image
   const [preview, setPreview] = useState("");
 
-  const userToken =
-    "g6FEXagZCSwTwokmKRWNGIv3KpVaUfDLBiqTfKQepvHl0vFIlCnxtoDhqnQIOChW";
   //   console.log(picture);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,21 +57,23 @@ function Publish() {
     formData.append("size", size);
     formData.append("condition", condition);
     formData.append("color", color);
-    console.log(preview);
-    // try {
+
     const response = await axios.post(
-      "http://localhost:3000/publish",
+      "https://e-commerce-kalai.herokuapp.com/publish",
       formData,
       {
         headers: {
-          Authorization: "Bearer " + userToken,
+          Authorization: "Bearer " + token,
           "Content-Type": "multipart/form-data",
         },
       }
     );
     console.log(response.data);
-    // } catch (error) {
-    //   alert(error.message);
+    // if (response.data._id) {
+    //   // redirectoin vers l'offre
+    //   history.push(`/offer/${response.data._id}`);
+    // } else {
+    //   alert("Une erreur est survenue, veuillez réssayer");
     // }
   };
 
@@ -90,7 +91,6 @@ function Publish() {
                 onChange={(e) => {
                   setPicture(e.target.files[0]);
                   setPreview(URL.createObjectURL(e.target.files[0]));
-                  console.log(preview);
                 }}
               />
             )}

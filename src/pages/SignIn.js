@@ -47,10 +47,13 @@ export default function SignIn({ setUser }) {
     try {
       e.preventDefault();
       setIsLoading(true);
-      const response = await axios.post("http://localhost:3000/user/login", {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        "https://e-commerce-kalai.herokuapp.com/user/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
       if (response.data.token) {
         setUser(response.data.token, response.data.lastName);
         setIsLoading(false);

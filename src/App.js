@@ -43,7 +43,7 @@ function App() {
           <SignIn setUser={setUser} />
         </Route>
         <Route path="/publish">
-          <Publish />
+          <Publish token={token} />
         </Route>
         <Route exact path="/">
           <Acceuil />
