@@ -8,7 +8,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Button from "@material-ui/core/Button";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 // select input
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Publish({ token }) {
-  // const history = useHistory();
+  const history = useHistory();
   const classes = useStyles();
   const [picture, setPicture] = useState(null);
   const [description, setDescription] = useState("");
@@ -45,36 +45,40 @@ function Publish({ token }) {
   //   console.log(picture);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("picture", picture);
-    formData.append("description", description);
-    formData.append("title", title);
-    formData.append("category", category);
-    formData.append("city", city);
-    formData.append("price", price);
-    formData.append("sexe", sexe);
-    formData.append("marque", marque);
-    formData.append("size", size);
-    formData.append("condition", condition);
-    formData.append("color", color);
+    try {
+      const formData = new FormData();
+      formData.append("picture", picture);
+      formData.append("description", description);
+      formData.append("title", title);
+      formData.append("category", category);
+      formData.append("city", city);
+      formData.append("price", price);
+      formData.append("sexe", sexe);
+      formData.append("marque", marque);
+      formData.append("size", size);
+      formData.append("condition", condition);
+      formData.append("color", color);
 
-    const response = await axios.post(
-      "https://e-commerce-kalai.herokuapp.com/publish",
-      formData,
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-          "Content-Type": "multipart/form-data",
-        },
+      const response = await axios.post(
+        "http://localhost:3000/offer/publish",
+        formData,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response.data);
+      if (response.data._id) {
+        // redirectoin vers l'offre
+        history.push(`/offer/${response.data._id}`);
+      } else {
+        alert("Une erreur est survenue, veuillez réssayer");
       }
-    );
-    console.log(response.data);
-    // if (response.data._id) {
-    //   // redirectoin vers l'offre
-    //   history.push(`/offer/${response.data._id}`);
-    // } else {
-    //   alert("Une erreur est survenue, veuillez réssayer");
-    // }
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
