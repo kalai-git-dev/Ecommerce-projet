@@ -6,7 +6,7 @@ import Avatar from "@material-ui/core/Avatar";
 
 function Header({ token, setUser, name }) {
   const [popup, setPopup] = useState(false);
-  console.log(token);
+  console.log("token ", token);
   const history = useHistory();
   return (
     <div className="header">

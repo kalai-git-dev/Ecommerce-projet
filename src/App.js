@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Cookie from "js-cookie";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -14,6 +15,8 @@ import Offer from "./pages/Offer";
 function App() {
   const [token, setToken] = useState(Cookie.get("userToken") || null);
   const [name, setName] = useState("");
+  const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   const setUser = (tokenToSet, userName) => {
     if (tokenToSet && userName) {
@@ -25,18 +28,27 @@ function App() {
       setToken(null);
     }
   };
-  console.log(token);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get("http://localhost:3000/offers");
+      setData(response.data.offers);
+      setIsLoading(false);
+    };
 
+    fetchData();
+  }, []);
+  console.log(data);
   return (
     <Router>
       <Header token={token} setUser={setUser} name={name} />
       <Switch>
         <Route path="/Produits">
-          <Products />
+          <Products data={data} />
         </Route>
         <Route path="/Contact">
           <Contact />
         </Route>
+
         <Route path="/Sign-up">
           <Signup setUser={setUser} />
         </Route>
@@ -50,7 +62,7 @@ function App() {
           <Offer />
         </Route>
         <Route exact path="/">
-          <Acceuil />
+          <Acceuil data={data} isLoading={isLoading} />
         </Route>
       </Switch>
     </Router>
