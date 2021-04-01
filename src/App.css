@@ -1,6 +1,24 @@
 * {
   box-sizing: border-box;
 }
+.image_carousel {
+  width: 100%;
+}
+.carousel-indicators li {
+  display: none;
+}
+div.carousel-caption {
+  position: absolute;
+  right: 15%;
 
+  left: 15%;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: rgb(255, 255, 255);
+  background-color: rgba(37, 36, 36, 0.562);
+  text-align: center;
+  bottom: 60px;
+}
 @import "./styles/header.css";
 @import "./styles/Publish.css";
