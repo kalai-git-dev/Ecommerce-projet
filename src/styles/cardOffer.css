@@ -1,0 +1,16 @@
+.card {
+  width: 400px;
+  background-color: rgb(143, 68, 68);
+  margin-right: 15px;
+  border: 1px solid black;
+}
+.card__image {
+  height: 400px;
+  object-fit: cover;
+  object-position: center;
+}
+.card__title {
+  text-decoration: none;
+  font-size: 20px;
+  text-align: center;
+}

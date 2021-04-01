@@ -10,7 +10,7 @@ function Caroussel() {
     <Carousel fade indicators>
       <Carousel.Item>
         <img
-          style={{ height: 500 }}
+          style={{ height: 600 }}
           className="image_carousel"
           src={Chaussure}
           alt="First slide"
@@ -25,7 +25,7 @@ function Caroussel() {
       </Carousel.Item>
       <Carousel.Item>
         <img
-          style={{ height: 500 }}
+          style={{ height: 600 }}
           className="image_carousel"
           src={Plombier}
           alt="Second slide"
@@ -38,7 +38,7 @@ function Caroussel() {
       </Carousel.Item>
       <Carousel.Item>
         <img
-          style={{ height: 500 }}
+          style={{ height: 600 }}
           className="image_carousel"
           src={Vetements}
           alt="Third slide"

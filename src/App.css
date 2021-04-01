@@ -22,3 +22,5 @@ div.carousel-caption {
 }
 @import "./styles/header.css";
 @import "./styles/Publish.css";
+@import "./styles/acceuil.css";
+@import "./styles/cardOffer.css";

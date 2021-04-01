@@ -2,14 +2,14 @@ import React from "react";
 
 function CardOffer({ offer }) {
   return (
-    <div key={offer._id}>
+    <div style={{ width: 300, heigth: 400 }} className="card" key={offer._id}>
       <img
+        className="card__image"
         src={offer.image.secure_url}
         alt={offer.title}
-        style={{ width: 300, heigth: 400 }}
+        style={{ width: 298, heigth: 398 }}
       />
-      <h1>{offer.title}</h1>
-      <p>{offer.category}</p>
+      <h1 className="card__title">{offer.title}</h1>
     </div>
   );
 }

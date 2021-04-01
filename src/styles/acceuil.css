@@ -1,0 +1,18 @@
+.carousel.slide.carousel-fade {
+  width: 100%;
+}
+.container__category {
+  width: 90%;
+  margin: 0 auto;
+}
+/* .category {
+  padding: 10px 20px;
+} */
+
+.carousel {
+  display: flex;
+
+  width: 100%;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+}

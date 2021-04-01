@@ -27,35 +27,43 @@ function Acceuil({ data, isLoading }) {
   ) : (
     <>
       <Caroussel />
-      <div>
-        <h2>Vêtements</h2>
-        {filterData1.map((offer) => {
-          return (
-            <Link to={"offer/" + offer._id} key={offer._id}>
-              <CardOffer offer={offer} />
-            </Link>
-          );
-        })}
-      </div>
-      <div>
-        <h2>Chaussures</h2>
-        {filterData2.map((offer) => {
-          return (
-            <Link to={"offer/" + offer._id} key={offer._id}>
-              <CardOffer offer={offer} />
-            </Link>
-          );
-        })}
-      </div>
-      <div>
-        <h2>Services</h2>
-        {filterData3.map((offer) => {
-          return (
-            <Link to={"offer/" + offer._id} key={offer._id}>
-              <CardOffer offer={offer} />
-            </Link>
-          );
-        })}
+      <div className="container__category">
+        <div className="category">
+          <h2>Vêtements</h2>
+          <div className="carousel">
+            {filterData1.map((offer) => {
+              return (
+                <Link to={"offer/" + offer._id} key={offer._id}>
+                  <CardOffer offer={offer} />
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+        <div>
+          <h2>Chaussures</h2>
+          <div className="carousel">
+            {filterData2.map((offer) => {
+              return (
+                <Link to={"offer/" + offer._id} key={offer._id}>
+                  <CardOffer offer={offer} />
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+        <div>
+          <h2>Services</h2>
+          <div className="carousel">
+            {filterData3.map((offer) => {
+              return (
+                <Link to={"offer/" + offer._id} key={offer._id}>
+                  <CardOffer offer={offer} />
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </>
   );
