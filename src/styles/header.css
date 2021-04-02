@@ -57,5 +57,5 @@
   text-decoration: underline;
 }
 .hidden {
-  opacity: 0;
+  display: none;
 }
