@@ -1,8 +1,17 @@
 import React from "react";
 import CardOffer from "../components/CardOffer";
 import Caroussel from "../components/Caroussel";
+import SearchBar from "../components/SearchBar";
 import { Link } from "react-router-dom";
-function Acceuil({ data, isLoading }) {
+function Acceuil({
+  data,
+  isLoading,
+  setCity,
+  category,
+  setCategory,
+  search,
+  setSearch,
+}) {
   console.log(data);
   let filterData1;
   let filterData2;
@@ -26,6 +35,13 @@ function Acceuil({ data, isLoading }) {
     <p>en cours de chargemnt..</p>
   ) : (
     <>
+      <SearchBar
+        setCategory={setCategory}
+        setCity={setCity}
+        category={category}
+        search={search}
+        setSearch={setSearch}
+      />
       <Caroussel />
       <div className="container__category">
         <div className="category">

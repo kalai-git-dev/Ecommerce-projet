@@ -11,12 +11,17 @@ import Signup from "./pages/Signup";
 import SignIn from "./pages/SignIn";
 import Publish from "./pages/Publish";
 import Offer from "./pages/Offer";
+import FilterData from "./pages/FilterData";
 
 function App() {
   const [token, setToken] = useState(Cookie.get("userToken") || null);
   const [name, setName] = useState("");
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [category, setCategory] = useState("");
+  const [city, setCity] = useState("");
+
+  const [search, setSearch] = useState("");
 
   const setUser = (tokenToSet, userName) => {
     if (tokenToSet && userName) {
@@ -30,7 +35,7 @@ function App() {
   };
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get("http://localhost:3000/offers");
+      const response = await axios.get(`http://localhost:3000/offers`);
       setData(response.data.offers);
       setIsLoading(false);
     };
@@ -48,6 +53,9 @@ function App() {
         <Route path="/Contact">
           <Contact />
         </Route>
+        <Route path="/Recherche">
+          <FilterData />
+        </Route>
 
         <Route path="/Sign-up">
           <Signup setUser={setUser} />
@@ -62,7 +70,15 @@ function App() {
           <Offer />
         </Route>
         <Route exact path="/">
-          <Acceuil data={data} isLoading={isLoading} />
+          <Acceuil
+            data={data}
+            isLoading={isLoading}
+            setSearch={setSearch}
+            setCategory={setCategory}
+            setCity={setCity}
+            category={category}
+            search={search}
+          />
         </Route>
       </Switch>
     </Router>
