@@ -54,7 +54,7 @@ function App() {
           <Contact />
         </Route>
         <Route path="/Recherche">
-          <FilterData />
+          <FilterData isLoading={isLoading} />
         </Route>
 
         <Route path="/Sign-up">

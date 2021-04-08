@@ -19,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchBar({ setSearch, search, setCity, category, setCategory }) {
   // const [data, setData] = useState({})
+  const [isLoading, setIsLoading] = useState(true);
+
   const history = useHistory();
   const classes = useStyles();
   const handleSubmit = (event) => {
@@ -28,11 +30,12 @@ function SearchBar({ setSearch, search, setCity, category, setCategory }) {
       const response = await axios.get(
         `http://localhost:3000/offers?title=${search}&category=${category}`
       );
+      setIsLoading(false);
       console.log(response.data);
       if (response.data) {
         history.push({
           pathname: `/Recherche/${search}`,
-          state: { detail: response.data, search: search },
+          state: { data: response.data, search: search },
         });
         setSearch("");
       }
